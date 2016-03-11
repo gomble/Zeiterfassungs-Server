@@ -1,4 +1,5 @@
 <?php 
 echo "test";
-asdasdas
+echo "test3"
+echo "asdasdas";
 ?>

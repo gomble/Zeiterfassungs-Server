@@ -1,5 +1,6 @@
 <?php 
 echo "test";
-echo "test3"
-echo "asdasdas";
+
+echo "test3";
+echo "19:30";
 ?>

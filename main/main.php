@@ -1,8 +1,19 @@
-<?php 
 
-include 'header.php';
+	<body>
 
-?>
+		<!-- Nav -->
+			<nav id="nav">
+				<ul class="container">
+					<li><a href="#top">Login</a></li>
+					
+					<!-- 
+						<li><a href="#work">Work</a></li>
+						<li><a href="#portfolio">Portfolio</a></li>
+						<li><a href="#contact">Contact</a></li>
+					 -->
+				</ul>
+			</nav>
+
 		<!-- Home -->
 			<div class="wrapper style1 first">
 				<article class="container" id="top">
@@ -44,8 +55,3 @@ include 'header.php';
 							</div>
 						</div>
 					</div>
-
-<?php 
-include 'footer.php';
-
-?>

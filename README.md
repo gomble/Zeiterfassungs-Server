@@ -12,7 +12,6 @@ TO-DO-LIST
 - Back-End
 	- Zeiten ändern
 	- Geo Daten administrieren
-	- 
 - Register Formular
 - Login Forumlar
 - Konto Frontend

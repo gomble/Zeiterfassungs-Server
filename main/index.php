@@ -41,7 +41,7 @@
 								<h1>Zeiterfassung</h1>
 							</header>
 							<p>Bitte <a href="register.php">registrieren</a> Sie sich oder <a href="login.php">loggen</a> sie sich ein. </p>
-							<a href="#work" class="button big scrolly">Learn about what I do</a>
+						
 						</div>
 					</div>
 				</article>

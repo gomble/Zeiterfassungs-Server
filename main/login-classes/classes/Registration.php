@@ -34,30 +34,27 @@ class Registration
      * handles the entire registration process. checks all error possibilities
      * and creates a new user in the database if everything is fine
      */
+
     private function registerNewUser()
     {
-        if (empty($_POST['user_name'])) {
-            $this->errors[] = "Empty Username";
-        } elseif (empty($_POST['user_password_new']) || empty($_POST['user_password_repeat'])) {
-            $this->errors[] = "Empty Password";
+        if (empty($_POST['user_nachname'])) {
+            $this->errors[] = "Bitte Nachnamen angeben.";
+        }elseif (empty($_POST['user_vorname'])){
+        	$this->errors = 'Bitte Vornamen angeben.';
+        }elseif (empty($_POST['user_password_new']) || empty($_POST['user_password_repeat'])) {
+            $this->errors[] = "Bitte Passwort angeben.";
         } elseif ($_POST['user_password_new'] !== $_POST['user_password_repeat']) {
-            $this->errors[] = "Password and password repeat are not the same";
+            $this->errors[] = "Passwörter stimmen nicht überein.";
         } elseif (strlen($_POST['user_password_new']) < 6) {
-            $this->errors[] = "Password has a minimum length of 6 characters";
-        } elseif (strlen($_POST['user_name']) > 64 || strlen($_POST['user_name']) < 2) {
-            $this->errors[] = "Username cannot be shorter than 2 or longer than 64 characters";
-        } elseif (!preg_match('/^[a-z\d]{2,64}$/i', $_POST['user_name'])) {
-            $this->errors[] = "Username does not fit the name scheme: only a-Z and numbers are allowed, 2 to 64 characters";
+            $this->errors[] = "Passwort muss länger als 6 Zeichen sein.";
         } elseif (empty($_POST['user_email'])) {
-            $this->errors[] = "Email cannot be empty";
+            $this->errors[] = "Bitten E-Mail angeben.";
         } elseif (strlen($_POST['user_email']) > 64) {
-            $this->errors[] = "Email cannot be longer than 64 characters";
+            $this->errors[] = "Die E-Mail Adresse darf nicht länger als 64 Zeichen sein.";
         } elseif (!filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL)) {
-            $this->errors[] = "Your email address is not in a valid email format";
-        } elseif (!empty($_POST['user_name'])
-            && strlen($_POST['user_name']) <= 64
-            && strlen($_POST['user_name']) >= 2
-            && preg_match('/^[a-z\d]{2,64}$/i', $_POST['user_name'])
+            $this->errors[] = "Ihre E-Mail Adresse hat nicht das Format einer E-Mail Adresse.";
+        } elseif (!empty($_POST['user_nachname'])
+            && !empty($_POST['user_vorname'])
             && !empty($_POST['user_email'])
             && strlen($_POST['user_email']) <= 64
             && filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL)
@@ -77,7 +74,8 @@ class Registration
             if (!$this->db_connection->connect_errno) {
 
                 // escaping, additionally removing everything that could be (html/javascript-) code
-                $user_name = $this->db_connection->real_escape_string(strip_tags($_POST['user_name'], ENT_QUOTES));
+                $user_nachname = $this->db_connection->real_escape_string(strip_tags($_POST['user_nachname'], ENT_QUOTES));
+                $user_vorname = $this->db_connection->real_escape_string(strip_tags($_POST['user_vorname'], ENT_QUOTES));
                 $user_email = $this->db_connection->real_escape_string(strip_tags($_POST['user_email'], ENT_QUOTES));
 
                 $user_password = $_POST['user_password_new'];
@@ -88,14 +86,14 @@ class Registration
                 $user_password_hash = password_hash($user_password, PASSWORD_DEFAULT);
 
                 // check if user or email address already exists
-                $sql = "SELECT * FROM users WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_email . "';";
+                $sql = "SELECT * FROM users WHERE user_email = '" . $user_email . "';";
                 $query_check_user_name = $this->db_connection->query($sql);
 
                 if ($query_check_user_name->num_rows == 1) {
-                    $this->errors[] = "Sorry, that username / email address is already taken.";
+                    $this->errors[] = "E-Mail Adresse bereits angemeldet.";
                 } else {
                     // write new user's data into database
-                    $sql = "INSERT INTO users (user_name, user_password_hash, user_email)
+                    $sql = "INSERT INTO users (user_vorname,user_nachname, user_password_hash, user_email)
                             VALUES('" . $user_name . "', '" . $user_password_hash . "', '" . $user_email . "');";
                     $query_new_user_insert = $this->db_connection->query($sql);
 

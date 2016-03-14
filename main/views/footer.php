@@ -1,3 +1,25 @@
+		<!-- Contact -->
+			<div class="wrapper style4">
+				<article id="contact" class="container 75%">
+					<header>
+
+					</header>
+					<div>
+						<div class="row">
+							<div class="12u">
+
+							</div>
+						</div>
+						<div class="row">
+							<div class="12u">
+								<hr />
+								<h3></h3>
+
+								<hr />
+							</div>
+						</div>
+					</div>
+
 					<footer>
 						<ul id="copyright">
 							<li>&copy; Leon Strack, Stefan Huhhn, Gökhan Balta</li>

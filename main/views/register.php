@@ -29,39 +29,44 @@ if (isset($registration)) {
 						<div>
 							<div class="row">
 								<div class="6u 12u(mobile)">
-									<input type="text" name="user_name" pattern="[a-zA-Z0-9]{2,64}" class="login_input" id="login_input_username"  placeholder="Name" required />
+									<input type="text" name="user_nachname"  class="login_input" id="login_input_nachname"  placeholder="Name" required />
 								</div>
 							</div>
 
-
 							<div class="row">
 								<div class="6u 12u(mobile)">
-									<input type="text" name="vorname" id="vorname" placeholder="Vorname" />
+									<input type="text" name="user_vorname"  class="login_input" id="login_input_vorname" placeholder="Vorname" required />
 								</div>
 							</div>
 							
 							<div class="row">
 								<div class="6u 12u(mobile)">
-									<input type="text" name="email" id="email" placeholder="Email" />
+									<input type="email" name="user_email" class="login_input"  id="login_input_email" name="user_email" placeholder="Email" required />
+								</div>
+							</div>
+							
+<!-- 							<div class="row"> -->
+<!-- 								<div class="6u 12u(mobile)"> -->
+<!-- 									<input type="text" name="user_abteilung" class="login_input" id="login_input_abteilung" placeholder="Abteilung" required/> -->
+<!-- 								</div> -->
+<!-- 							</div>							 -->
+							
+							<div class="row">
+								<div class="6u 12u(mobile)">
+									<input type="password" class="login_input" name="user_password_new" id="login_input_password_new" pattern=".{6,}" required autocomplete="off" placeholder="Passwort" />
 								</div>
 							</div>
 							
 							<div class="row">
 								<div class="6u 12u(mobile)">
-									<input type="text" name="abteilung" id="abteilung" placeholder="Abteilung" />
-								</div>
-							</div>							
-							
-							<div class="row">
-								<div class="6u 12u(mobile)">
-									<input type="password" name="passwort" id="passwort" placeholder="Passwort" />
+									<input type="password" class="login_input" name="user_password_repeat" id="login_input_password_repeat" pattern=".{6,}" required autocomplete="off" placeholder="Passwort" />
 								</div>
 							</div>
-
+							
 							<div class="row 200%">
 								<div class="12u">
 									<ul class="actions">
-										<li><input type="submit" value="Absenden" /></li>
+										<li><input name="register" type="submit" value="Absenden" /></li>
 										<li><input type="reset" value="Clear" class="alt" /></li>
 									</ul>
 								</div>
@@ -75,22 +80,3 @@ if (isset($registration)) {
 	</article>
 </div>
 
-
-
-<!-- Contact -->
-<div class="wrapper style4">
-	<article id="contact" class="container 75%">
-		<header> </header>
-		<div>
-			<div class="row">
-				<div class="12u"></div>
-			</div>
-			<div class="row">
-				<div class="12u">
-					<hr />
-					<h3></h3>
-
-					<hr />
-				</div>
-			</div>
-		</div>

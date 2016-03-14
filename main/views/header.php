@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-	Miniport by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 <head>
 <title>Zeiterfassung</title>
@@ -19,16 +14,23 @@
 	<!-- Nav -->
 	<nav id="nav">
 		<ul class="container">
-			<li><a href="login.php">Login</a></li>
-			<li><a href="register.php">Registrieren</a></li>
+		
+
 			<?php 
-			
-			echo'<li><a href="konto.php">Konto</a></li>';
+			if ($login->isUserLoggedIn()==false){
+				echo'
+					<li><a href="index.php">Home</a></li>
+					<li><a href="index.php?site=login">Login</a></li>
+					<li><a href="index.php?site=register">Registrieren</a></li>
+					';
+			}
+
+			if ($login->isUserLoggedIn() == true) {
+				echo'<li><a href="konto.php">Konto</a></li>
+				<li><a href="zeiten.php">Zeiterfassung</a></li>
+				<li><a href="index.php?logout">Logout</a></li>';
+			}
 			?>
-			<!--
-			<li><a href="#work">Work</a></li>
-			<li><a href="#portfolio">Portfolio</a></li>
-			<li><a href="#contact">Contact</a></li>
-			-->
+
 		</ul>
 	</nav>

@@ -1,51 +1,51 @@
 <?php 
+// checking for minimum PHP version
+if (version_compare(PHP_VERSION, '5.3.7', '<')) {
+	exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
+} else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
+	// if you are using PHP 5.3 or PHP 5.4 you have to include the password_api_compatibility_library.php
+	// (this library adds the PHP 5.5 password hashing functions to older versions of PHP)
+	require_once("/login-classes/libraries/password_compatibility_library.php");
+}
 
-include 'header.php';
-
-?>
-		<!-- Home -->
-			<div class="wrapper style1 first">
-				<article class="container" id="top">
-					<div class="row">
-						<div class="4u 12u(mobile)">
-							<span class="image fit"><img src="images/clock.png" alt="" /></span>
-						</div>
-						<div class="8u 12u(mobile)">
-							<header>
-								<h1>Zeiterfassung</h1>
-							</header>
-							<p>Bitte <a href="register.php">registrieren</a> Sie sich oder <a href="login.php">loggen</a> sie sich ein. </p>
-						
-						</div>
-					</div>
-				</article>
-			</div>
+// include the configs / constants for the database connection
+require_once '/login-classes/config/db.php';
 
 
 
-		<!-- Contact -->
-			<div class="wrapper style4">
-				<article id="contact" class="container 75%">
-					<header>
+// load the login class
+require_once("/login-classes/classes/Login.php");
 
-					</header>
-					<div>
-						<div class="row">
-							<div class="12u">
+// create a login object. when this object is created, it will do all login/logout stuff automatically
+// so this single line handles the entire login process. in consequence, you can simply ...
+$login = new Login();
 
-							</div>
-						</div>
-						<div class="row">
-							<div class="12u">
-								<hr />
-								<h3></h3>
+$site = $_GET['site'];
 
-								<hr />
-							</div>
-						</div>
-					</div>
 
-<?php 
-include 'footer.php';
+
+include 'views/header.php';
+
+switch ($site) {
+	case 'main':
+		include 'views/main.php';
+	break;
+	
+	case 'register':
+		include 'views/register.php';
+	break;
+	
+	case 'login':
+		include 'views/login.php';
+	break;
+		
+	default:
+		include 'views/main.php';
+	break;
+}
+
+
+
+include 'views/footer.php';
 
 ?>

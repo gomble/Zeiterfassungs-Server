@@ -1,17 +1,13 @@
 <?php
-// show potential errors / feedback (from registration object)
-if (isset($registration)) {
-    if ($registration->errors) {
-        foreach ($registration->errors as $error) {
-            echo $error;
-        }
-    }
-    if ($registration->messages) {
-        foreach ($registration->messages as $message) {
-            echo $message;
-        }
-    }
-}
+// include the configs / constants for the database connection
+require_once("/../login-classes/config/db.php");
+
+// load the registration class
+require_once("/../login-classes/classes/Registration.php");
+
+// create the registration object. when this object is created, it will do all registration stuff automatically
+// so this single line handles the entire registration process.
+$registration = new Registration();
 ?>
 <!-- Home -->
 <div class="wrapper style1 first">
@@ -74,7 +70,21 @@ if (isset($registration)) {
 						</div>
 					</form>
 				</div>
-
+				<?php
+				// show potential errors / feedback (from registration object)
+				if (isset($registration)) {
+				    if ($registration->errors) {
+				        foreach ($registration->errors as $error) {
+				            echo $error;
+				        }
+				    }
+				    if ($registration->messages) {
+				        foreach ($registration->messages as $message) {
+				            echo $message;
+				        }
+				    }
+				}
+				?>
 			</div>
 		</div>
 	</article>

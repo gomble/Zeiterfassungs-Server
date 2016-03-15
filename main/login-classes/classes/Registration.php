@@ -44,13 +44,13 @@ class Registration
         }elseif (empty($_POST['user_password_new']) || empty($_POST['user_password_repeat'])) {
             $this->errors[] = "Bitte Passwort angeben.";
         } elseif ($_POST['user_password_new'] !== $_POST['user_password_repeat']) {
-            $this->errors[] = "Passwˆrter stimmen nicht ¸berein.";
+            $this->errors[] = "Passw√∂rter stimmen nicht √ºberein.";
         } elseif (strlen($_POST['user_password_new']) < 6) {
-            $this->errors[] = "Passwort muss l‰nger als 6 Zeichen sein.";
+            $this->errors[] = "Passwort muss l√§nger als 6 Zeichen sein.";
         } elseif (empty($_POST['user_email'])) {
             $this->errors[] = "Bitten E-Mail angeben.";
         } elseif (strlen($_POST['user_email']) > 64) {
-            $this->errors[] = "Die E-Mail Adresse darf nicht l‰nger als 64 Zeichen sein.";
+            $this->errors[] = "Die E-Mail Adresse darf nicht l√§nger als 64 Zeichen sein.";
         } elseif (!filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL)) {
             $this->errors[] = "Ihre E-Mail Adresse hat nicht das Format einer E-Mail Adresse.";
         } elseif (!empty($_POST['user_nachname'])
@@ -93,22 +93,25 @@ class Registration
                     $this->errors[] = "E-Mail Adresse bereits angemeldet.";
                 } else {
                     // write new user's data into database
-                    $sql = "INSERT INTO users (user_vorname,user_nachname, user_password_hash, user_email)
-                            VALUES('" . $user_name . "', '" . $user_password_hash . "', '" . $user_email . "');";
+                    $sql = "INSERT INTO users (user_name,user_vorname, user_password_hash, user_email)
+                            VALUES('" . $user_nachname . "', '" . $user_vorname . "','" . $user_password_hash . "', '" . $user_email . "');";
+                    
                     $query_new_user_insert = $this->db_connection->query($sql);
 
+                    echo $this->db_connection->query($sql);
+                    
                     // if user has been added successfully
                     if ($query_new_user_insert) {
-                        $this->messages[] = "Your account has been created successfully. You can now log in.";
+                        $this->messages[] = "Benutzer angelegt, Sie k√∂nnen sich nun anmelden.";
                     } else {
-                        $this->errors[] = "Sorry, your registration failed. Please go back and try again.";
+                        $this->errors[] = "Sorry, Ihre Registration ist fehlgeschlagen.";
                     }
                 }
             } else {
-                $this->errors[] = "Sorry, no database connection.";
+                $this->errors[] = "Keine Datenbankverbindung.";
             }
         } else {
-            $this->errors[] = "An unknown error occurred.";
+            $this->errors[] = "Ein Unbekannter Fehler ist aufgetreten.";
         }
     }
 }

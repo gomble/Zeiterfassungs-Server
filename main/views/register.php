@@ -9,7 +9,7 @@ require_once("/../login-classes/classes/Registration.php");
 // so this single line handles the entire registration process.
 $registration = new Registration();
 ?>
-<!-- Home -->
+<!-- Register -->
 <div class="wrapper style1 first">
 	<article class="container" id="top">
 		<div class="row">

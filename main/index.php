@@ -38,6 +38,10 @@ switch ($site) {
 	case 'login':
 		include 'views/login.php';
 	break;
+	
+	case 'logout':
+		include 'views/main.php';
+	break;
 		
 	default:
 		include 'views/main.php';

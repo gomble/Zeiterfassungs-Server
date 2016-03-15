@@ -14,21 +14,22 @@
 	<!-- Nav -->
 	<nav id="nav">
 		<ul class="container">
-		
 
+				<li><a href="index.php">Home</a></li>
 			<?php 
-			if ($login->isUserLoggedIn()==false){
+			if ($login->isUserLoggedIn() == false) {
 				echo'
-					<li><a href="index.php">Home</a></li>
 					<li><a href="index.php?site=login">Login</a></li>
 					<li><a href="index.php?site=register">Registrieren</a></li>
 					';
 			}
 
+			?>
+			<?php
 			if ($login->isUserLoggedIn() == true) {
 				echo'<li><a href="konto.php">Konto</a></li>
 				<li><a href="zeiten.php">Zeiterfassung</a></li>
-				<li><a href="index.php?logout">Logout</a></li>';
+				<li><a href="index.php?site=logout">Logout</a></li>';
 			}
 			?>
 

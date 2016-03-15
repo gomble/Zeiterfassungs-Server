@@ -12,10 +12,13 @@
 							<?php 
 							// ... ask if we are logged in here:
 							if ($login->isUserLoggedIn()) {
-								echo'Herzlich Willkommen '.$_SESSION['user_name'];
+								echo'Herzlich Willkommen in Ihrem Konto '.$_SESSION['user_email'];
 							} else {
 								echo'<p>Bitte <a href="index.php?site=register">registrieren</a> Sie sich oder <a href="index.php?site=login">loggen</a> sie sich ein. </p>';
 							}
+							
+							if ($site=="logout")
+								echo "Sie haben sich abgemeldet."
 							?>						
 						</div>
 					</div>

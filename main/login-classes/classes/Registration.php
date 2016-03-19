@@ -102,7 +102,7 @@ class Registration
                     
                     // if user has been added successfully
                     if ($query_new_user_insert) {
-                        $this->messages[] = "Benutzer angelegt, Sie können sich nun anmelden.";
+                        $this->messages[] = 'Benutzer angelegt, Sie können sich nun <a href="index.php?site=login">anmelden</a>';
                     } else {
                         $this->errors[] = "Sorry, Ihre Registration ist fehlgeschlagen.";
                     }

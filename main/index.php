@@ -39,6 +39,14 @@ switch ($site) {
 		include 'views/login.php';
 	break;
 	
+	case 'konto':
+		include 'views/konto.php';
+	break;
+	
+	case 'zeiterfassung':
+		include 'views/zeiterfassung.php';
+	break;
+	
 	case 'logout':
 		include 'views/main.php';
 	break;

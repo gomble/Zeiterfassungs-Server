@@ -27,8 +27,8 @@
 			?>
 			<?php
 			if ($login->isUserLoggedIn() == true) {
-				echo'<li><a href="konto.php">Konto</a></li>
-				<li><a href="zeiten.php">Zeiterfassung</a></li>
+				echo'<li><a href="index.php?site=konto">Konto</a></li>
+				<li><a href="index.php?site=zeiterfassung">Zeiterfassung</a></li>
 				<li><a href="index.php?site=logout">Logout</a></li>';
 			}
 			?>

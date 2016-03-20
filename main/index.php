@@ -50,7 +50,9 @@ switch ($site) {
 	case 'logout':
 		include 'views/main.php';
 	break;
-		
+	case 'buchungen':
+		include 'views/buchungen.php';
+	break;		
 	default:
 		include 'views/main.php';
 	break;

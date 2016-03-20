@@ -1,5 +1,5 @@
 <!-- Home -->
-			<div class="wrapper style1 first">
+			<div class="wrapper style3 first">
 				<article class="container" id="top">
 					<div class="row">
 						<div class="4u 12u(mobile)">

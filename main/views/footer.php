@@ -39,8 +39,7 @@
 			<?php 
 			if ($site == 'buchungen') {
 				echo"
-					<script src='assets/js/__jquery.tablesorter.min.js'></script>
-        			<script src='assets/js/index.js'></script>
+
 					";
 			}
 			?>

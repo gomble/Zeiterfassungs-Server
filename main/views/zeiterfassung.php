@@ -3,7 +3,7 @@
 	<article id="portfolio">
 		<header>
 			<h2>Zeiterfassung</h2>
-			<p>Folgende Zeiterfassungs-Module stehen ihnen zur verfügung.</p>
+			<p>Folgende Zeiterfassungs-Module stehen ihnen zur Verfügung.</p>
 		</header>
 		<div class="container">
 			<div class="row">

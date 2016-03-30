@@ -52,7 +52,10 @@ switch ($site) {
 	break;
 	case 'buchungen':
 		include 'views/buchungen.php';
-	break;		
+	break;	
+	case 'map':
+		include 'views/map.php';
+	break;
 	default:
 		include 'views/main.php';
 	break;

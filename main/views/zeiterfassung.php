@@ -27,7 +27,7 @@
 				</div>
 				<div class="4u 12u(mobile)">
 					<article class="box style2">
-						<a href="#" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
+						<a href="index.php?site=map" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
 						<h3>
 							<a href="#">Geo-Location-Map</a>
 						</h3>

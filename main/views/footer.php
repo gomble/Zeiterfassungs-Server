@@ -42,6 +42,13 @@
 
 					";
 			}
+			if ($site == 'map') {
+				echo"<script src='http://maps.google.com/maps/api/js?sensor=false&.js'></script>";
+				echo"<script src='assets/js/googlemaps.js'></script>";
+			}
+			
+			
+			
 			?>
 	</body>
 </html>

@@ -5,9 +5,11 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <?php 
-if ($site == 'buchungen'){
+if ($site == 'buchungen')
 	echo '<link rel="stylesheet" href="assets/css/table.css" />';
-}
+if ($site == 'map')
+	echo '<link rel="stylesheet" href="assets/css/googlemaps.css" />;'
+
 ?>
 <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 <link rel="stylesheet" href="assets/css/main.css" />

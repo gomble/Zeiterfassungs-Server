@@ -1182,6 +1182,7 @@
 	form input[type=text],
 	form input[type=email],
 	form input[type=password],
+	form input[type=month],
 	form select,
 	form textarea {
 		-moz-transition: background .2s ease-in-out, box-shadow .2s ease-in-out;
@@ -1627,6 +1628,7 @@
 
 			.wrapper.style4 form input[type=text],
 			.wrapper.style4 form input[type=password],
+			.wrapper.style4 form input[type=month],
 			.wrapper.style4 form select,
 			.wrapper.style4 form textarea {
 				border: none;

@@ -65,14 +65,13 @@ $geodata = new Geodata ();
 
 <script src='http://maps.google.com/maps/api/js?sensor=false&.js'></script>
 <script type="text/javascript">
+
+			 
 			function initialize(){
 
-				
-
-				
-			       var center= new google.maps.LatLng(10.012869,76.328802);
+			       var center= new google.maps.LatLng(0,0);
 			       var myOptions = {
-			                zoom: 18,
+			                zoom: 2,
 			                center: center,
 			                mapTypeControl: true,
 			                mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
@@ -82,6 +81,10 @@ $geodata = new Geodata ();
 			      var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 			    
 			      var polylineCoordinates = [<?php echo $geodata->get_coordinates('5');?>];
+
+				  var locations = [<?php echo $geodata->get_workplace_coords();?>];  
+
+				  var triangleCoords = [<?php echo $geodata->get_workplace_coords_polygon();?>];
 			      
 			      var polyline = new google.maps.Polyline({
 			          path: polylineCoordinates,
@@ -93,9 +96,32 @@ $geodata = new Geodata ();
 
 			      polyline.setMap(map);    
 
+			      var bermudaTriangle = new google.maps.Polygon({
+			        paths: triangleCoords,
+			        strokeColor: '#949494',
+			        strokeOpacity: 0.8,
+			        strokeWeight: 2,
+			        fillColor: '#CCCCCC',
+			        fillOpacity: 0.35
+			      });
+			      bermudaTriangle.setMap(map);
+
+			      
+			      var bounds = new google.maps.LatLngBounds();
+			      for (var i = 0; i < locations.length; i++) {
+			        var coord = locations[i];
+			        var myLatLng = new google.maps.LatLng(coord[0], coord[1]);
+			        bounds.extend(myLatLng);
+			      }
+			      map.fitBounds(bounds);
+
+
+
+
+			      
 			}
 
-			    
+
 
 			initialize();
 

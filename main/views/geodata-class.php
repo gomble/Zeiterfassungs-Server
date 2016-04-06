@@ -89,38 +89,67 @@ class Geodata {
 		if (! $this->db_connection->connect_errno) {
 				
 			$sql = "SELECT workplace.lat, workplace.long FROM workplace;";
-
+			$query_check_coords = $this->db_connection->query ( $sql );
 				
 			if ($query_check_coords = $this->db_connection->query ( $sql )) {
-		
+			
+				$number_of_rows = $query_check_coords->num_rows;
+				$current_row = 0;
+			
 				/* fetch object array */
 				while ( $row = $query_check_coords->fetch_row () ) {
 						
-					printf ( "new google.maps.LatLng(" . $row [0] . "," . $row [1] . ")" );
+					$current_row ++;
 						
-
+					printf ( "[" . $row [0] . "," . $row [1] . "]" );
+					if (! ($current_row == $number_of_rows)) {
+						printf ( ",\n" );
+					}
 				}
-		
+			
 				/* free result set */
 				$query_check_coords->close ();
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		printf ( "new google.maps.LatLng(" . $row [0] . "," . $row [1] . ")" );
-		
-		new google.maps.LatLng(10.012869,76.328802);
-		
 	}
 	
+	public function get_workplace_coords_polygon(){
 	
+		$this->db_connection = new mysqli ( DB_HOST, DB_USER, DB_PASS, DB_NAME );
+	
+		// change character set to utf8 and check it
+		if (! $this->db_connection->set_charset ( "utf8" )) {
+			$this->errors [] = $this->db_connection->error;
+		}
+	
+		// if no connection errors (= working database connection)
+		if (! $this->db_connection->connect_errno) {
+	
+			$sql = "SELECT workplace.lat, workplace.long FROM workplace;";
+			$query_check_coords = $this->db_connection->query ( $sql );
+	
+			if ($query_check_coords = $this->db_connection->query ( $sql )) {
+					
+				$number_of_rows = $query_check_coords->num_rows;
+				$current_row = 0;
+					
+				/* fetch object array */
+				while ( $row = $query_check_coords->fetch_row () ) {
+	
+					$current_row ++;
+	
+					printf ( "{lat: " . $row [0] . ", lng: " . $row [1] . "}" );
+				
+					if (! ($current_row == $number_of_rows)) {
+						printf ( ",\n" );
+					}
+				}
+					
+				/* free result set */
+				$query_check_coords->close ();
+			}
+		}
+	}	
 	
 }
 

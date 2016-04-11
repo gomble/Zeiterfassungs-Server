@@ -18,9 +18,9 @@
 				</div>
 				<div class="4u 12u(mobile)">
 					<article class="box style2">
-						<a href="#" class="image featured"><img src="images/pic03.jpg" alt="" /></a>
+						<a href="index.php?site=gps" class="image featured"><img src="images/pic03.jpg" alt="" /></a>
 						<h3>
-							<a href="#">Geo-Data</a>
+							<a href="index.php?site=gps">Geo-Data</a>
 						</h3>
 						<p>Alle Geo-Daten</p>
 					</article>

@@ -1,10 +1,13 @@
 eclipse.preferences.version=1
 encoding//main/assets/css/table.css=UTF-8
 encoding//main/index.php=UTF-8
+encoding//main/login-classes/classes/Edit.php=UTF-8
 encoding//main/login-classes/classes/Registration.php=UTF-8
+encoding//main/login-classes/classes/Userdata.php=UTF-8
 encoding//main/views/buchungen.php=UTF-8
 encoding//main/views/footer.php=UTF-8
 encoding//main/views/geodata-class.php=UTF-8
+encoding//main/views/gps.php=UTF-8
 encoding//main/views/header.php=UTF-8
 encoding//main/views/konto.php=UTF-8
 encoding//main/views/login.php=UTF-8

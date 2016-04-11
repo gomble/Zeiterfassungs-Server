@@ -74,10 +74,7 @@ class Geodata {
 			}
 		}
 	}
-	
-	
-	public function get_workplace_coords(){
-		
+	public function get_workplace_coords() {
 		$this->db_connection = new mysqli ( DB_HOST, DB_USER, DB_PASS, DB_NAME );
 		
 		// change character set to utf8 and check it
@@ -87,70 +84,100 @@ class Geodata {
 		
 		// if no connection errors (= working database connection)
 		if (! $this->db_connection->connect_errno) {
-				
+			
 			$sql = "SELECT workplace.lat, workplace.long FROM workplace;";
 			$query_check_coords = $this->db_connection->query ( $sql );
-				
-			if ($query_check_coords = $this->db_connection->query ( $sql )) {
 			
+			if ($query_check_coords = $this->db_connection->query ( $sql )) {
+				
 				$number_of_rows = $query_check_coords->num_rows;
 				$current_row = 0;
-			
+				
 				/* fetch object array */
 				while ( $row = $query_check_coords->fetch_row () ) {
-						
+					
 					$current_row ++;
-						
+					
 					printf ( "[" . $row [0] . "," . $row [1] . "]" );
 					if (! ($current_row == $number_of_rows)) {
 						printf ( ",\n" );
 					}
 				}
+				
+				/* free result set */
+				$query_check_coords->close ();
+			}
+		}
+	}
+	public function get_workplace_coords_polygon() {
+		$this->db_connection = new mysqli ( DB_HOST, DB_USER, DB_PASS, DB_NAME );
+		
+		// change character set to utf8 and check it
+		if (! $this->db_connection->set_charset ( "utf8" )) {
+			$this->errors [] = $this->db_connection->error;
+		}
+		
+		// if no connection errors (= working database connection)
+		if (! $this->db_connection->connect_errno) {
 			
+			$sql = "SELECT workplace.lat, workplace.long FROM workplace;";
+			$query_check_coords = $this->db_connection->query ( $sql );
+			
+			if ($query_check_coords = $this->db_connection->query ( $sql )) {
+				
+				$number_of_rows = $query_check_coords->num_rows;
+				$current_row = 0;
+				
+				/* fetch object array */
+				while ( $row = $query_check_coords->fetch_row () ) {
+					
+					$current_row ++;
+					
+					printf ( "{lat: " . $row [0] . ", lng: " . $row [1] . "}" );
+					
+					if (! ($current_row == $number_of_rows)) {
+						printf ( ",\n" );
+					}
+				}
+				
 				/* free result set */
 				$query_check_coords->close ();
 			}
 		}
 	}
 	
-	public function get_workplace_coords_polygon(){
-	
+	/**
+	 * get coordinates from the user who is logged in
+	 */
+	public function get_gps_data($month) {
 		$this->db_connection = new mysqli ( DB_HOST, DB_USER, DB_PASS, DB_NAME );
-	
+		
 		// change character set to utf8 and check it
 		if (! $this->db_connection->set_charset ( "utf8" )) {
 			$this->errors [] = $this->db_connection->error;
 		}
-	
+		
 		// if no connection errors (= working database connection)
 		if (! $this->db_connection->connect_errno) {
-	
-			$sql = "SELECT workplace.lat, workplace.long FROM workplace;";
+			
+			$sql = "SELECT geo.lat, geo.long, DATE_FORMAT(timestamp,'%d.%m.%Y %T') AS datum FROM geo, users WHERE users.user_id = geo.user_id AND users.user_id = '" . $this->logged_in_user . "';";
 			$query_check_coords = $this->db_connection->query ( $sql );
-	
+			
 			if ($query_check_coords = $this->db_connection->query ( $sql )) {
-					
-				$number_of_rows = $query_check_coords->num_rows;
-				$current_row = 0;
-					
+				
 				/* fetch object array */
 				while ( $row = $query_check_coords->fetch_row () ) {
-	
-					$current_row ++;
-	
-					printf ( "{lat: " . $row [0] . ", lng: " . $row [1] . "}" );
-				
-					if (! ($current_row == $number_of_rows)) {
-						printf ( ",\n" );
-					}
+					printf ( "<tr>" );
+					printf ( "<td>" . $row [2] . "</td>" );
+					printf ( "<td>" . $row [0] . "</td>" );
+					printf ( "<td>" . $row [1] . "</td>" );
+					printf ( "</tr>" );
 				}
-					
 				/* free result set */
 				$query_check_coords->close ();
 			}
 		}
-	}	
-	
+	}
 }
 
 ?>

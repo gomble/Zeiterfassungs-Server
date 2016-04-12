@@ -14,7 +14,6 @@ $geodata = new Geodata ();
 <div class="wrapper">
 	<article class="container" id="top">
 		<div class="row">
-
 			<div class="12u 12u(mobile)">
 				<header>
 					<h1>Geo-Location-Map</h1>
@@ -25,7 +24,7 @@ $geodata = new Geodata ();
 
 							<div class="row">
 								<div class="6u 12u(mobile)">
-									<input type="month" name="gps_date"  class="login_input"  value="<?php echo date('Y')."-".date('m', strtotime('-1 month'));  ?>" required />
+									<input type="month" name="gps_date"  class="login_input"  value="<?php echo $geodata->get_month();  ?>" required />
 								</div>
 							</div>
 											

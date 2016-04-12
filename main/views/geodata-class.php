@@ -30,15 +30,32 @@ class Geodata {
 		if (isset ( $_SESSION ["user_id"] )) {
 			
 			$this->logged_in_user = $_SESSION ["user_id"];
-			$monthdate = ('Y') . "-" . date ( 'm', strtotime ( '-1 month' ) );
-			// $this->get_coordinates();
+			
+			$this->month = $this->get_current_month ();
+			if (isset ( $_POST ["map_submit"]) || isset ( $_POST ["gps_submit"] )) {
+				$this->change_month ();
+			}
+		
+			
+			echo $this->month;
 		}
+	}
+	private function change_month() {
+		if (! empty ( $_POST ['gps_date'] )) {
+			$this->month = $_POST ['gps_date'];
+		}
+	}
+	public function get_current_month() {
+		return date ( "Y" ) . "-" . date ( "m" );
+	}
+	public function get_month() {
+		return $this->month;
 	}
 	
 	/**
 	 * get coordinates from the user who is logged in
 	 */
-	public function get_coordinates($month) {
+	public function get_coordinates() {
 		$this->db_connection = new mysqli ( DB_HOST, DB_USER, DB_PASS, DB_NAME );
 		
 		// change character set to utf8 and check it
@@ -49,7 +66,7 @@ class Geodata {
 		// if no connection errors (= working database connection)
 		if (! $this->db_connection->connect_errno) {
 			
-			$sql = "SELECT geo.lat, geo.long, geo.timestamp FROM geo, users WHERE users.user_id = geo.user_id AND users.user_id = '" . $this->logged_in_user . "';";
+			$sql = "SELECT geo.lat, geo.long, geo.timestamp FROM geo, users WHERE geo.timestamp LIKE '" . $this->month . "%' AND users.user_id = geo.user_id AND users.user_id = '" . $this->logged_in_user . "';";
 			$query_check_coords = $this->db_connection->query ( $sql );
 			
 			if ($query_check_coords = $this->db_connection->query ( $sql )) {
@@ -149,7 +166,7 @@ class Geodata {
 	/**
 	 * get coordinates from the user who is logged in
 	 */
-	public function get_gps_data($month) {
+	public function get_gps_data() {
 		$this->db_connection = new mysqli ( DB_HOST, DB_USER, DB_PASS, DB_NAME );
 		
 		// change character set to utf8 and check it
@@ -160,7 +177,7 @@ class Geodata {
 		// if no connection errors (= working database connection)
 		if (! $this->db_connection->connect_errno) {
 			
-			$sql = "SELECT geo.lat, geo.long, DATE_FORMAT(timestamp,'%d.%m.%Y %T') AS datum FROM geo, users WHERE users.user_id = geo.user_id AND users.user_id = '" . $this->logged_in_user . "';";
+			$sql = "SELECT geo.lat, geo.long, DATE_FORMAT(timestamp,'%d.%m.%Y %T') AS datum FROM geo, users WHERE geo.timestamp LIKE '" . $this->month . "%' AND users.user_id = geo.user_id AND users.user_id = '" . $this->logged_in_user . "';";
 			$query_check_coords = $this->db_connection->query ( $sql );
 			
 			if ($query_check_coords = $this->db_connection->query ( $sql )) {

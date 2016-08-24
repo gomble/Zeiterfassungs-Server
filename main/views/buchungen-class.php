@@ -3,7 +3,7 @@
  * Class Geodata
  * handles the geodata for googlemaps api
  */
-class Geodata {
+class Buchungen {
 	/**
 	 *
 	 * @var object $db_connection The database connection
@@ -22,7 +22,6 @@ class Geodata {
 	private $logged_in_user = null;
 	private $coords = array ();
 	private $month = null;
-	private $dateform = null;
 	
 	/**
 	 * the function "__construct()" automatically starts whenever an object of this class is created
@@ -33,11 +32,8 @@ class Geodata {
 			$this->logged_in_user = $_SESSION ["user_email"];
 			
 			$this->month = $this->get_current_month ();
-			
-			$this->dateform = $this->get_current_daymonthyear ();
-			
-			if (isset ( $_POST ["map_submit"]) || isset ( $_POST ["gps_submit"] )) {
-				$this->change_daymonthyear ();
+			if (isset ( $_POST ["buchungen_submit"]) ) {
+				$this->change_month ();
 			}
 		
 			
@@ -45,35 +41,34 @@ class Geodata {
 		}
 	}
 	private function change_month() {
-		if (! empty ( $_POST ['gps_date'] )) {
-			$this->month = $_POST ['gps_date'];
+		if (! empty ( $_POST ['buchungen_date'] )) {
+			$this->month = $_POST ['buchungen_date'];
 		}
 	}
-	
-		private function change_daymonthyear() {
-		if (! empty ( $_POST ['gps_date'] )) {
-			$this->dateform = $_POST ['gps_date'];
-		}
-	}
-	
 	public function get_current_month() {
 		return date ( "Y" ) . "-" . date ( "m" );
 	}
-	
-		public function get_current_daymonthyear() {
-		return date ( "Y" ) . "-" . date ( "m" ) . "-" .date ( "d" );
-	}
-	
 	public function get_month() {
 		return $this->month;
 	}
 	
-		public function get_date() {
-		return $this->dateform;
+	
+	public function get_timestamps(){
+		
+		
+		
+		
+		// hier weiter
+		
+		
+		
+		
 	}
 	
+
+
 	/**
-	 * get coordinates from the user who is logged in
+	 * Koordinaten für Buchungen 
 	 */
 	public function get_coordinates() {
 		$this->db_connection = new mysqli ( DB_HOST, DB_USER, DB_PASS, DB_NAME );
@@ -86,7 +81,7 @@ class Geodata {
 		// if no connection errors (= working database connection)
 		if (! $this->db_connection->connect_errno) {
 			
-			$sql = "SELECT geo.lat, geo.long, geo.timestamp FROM geo WHERE geo.timestamp LIKE '" . $this->dateform . "%' AND geo.user= '" . $this->logged_in_user . "';";
+			$sql = "SELECT geo.lat, geo.long, geo.timestamp FROM geo WHERE geo.timestamp LIKE '" . $this->month . "%' AND geo.user= '" . $this->logged_in_user . "';";
 			$query_check_coords = $this->db_connection->query ( $sql );
 			
 			if ($query_check_coords = $this->db_connection->query ( $sql )) {
@@ -197,7 +192,7 @@ class Geodata {
 		// if no connection errors (= working database connection)
 		if (! $this->db_connection->connect_errno) {
 			
-			$sql = "SELECT geo.lat, geo.long, DATE_FORMAT(timestamp,'%d.%m.%Y %T') AS datum FROM geo WHERE geo.timestamp LIKE '" . $this->dateform . "%' AND geo.user = '" . $this->logged_in_user . "';";
+			$sql = "SELECT geo.lat, geo.long, DATE_FORMAT(timestamp,'%d.%m.%Y %T') AS datum FROM geo WHERE geo.timestamp LIKE '" . $this->month . "%' AND geo.user = '" . $this->logged_in_user . "';";
 			$query_check_coords = $this->db_connection->query ( $sql );
 			
 			if ($query_check_coords = $this->db_connection->query ( $sql )) {

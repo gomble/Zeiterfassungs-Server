@@ -1,9 +1,10 @@
 <?php
 // include the configs / constants for the database connection
-require_once ("/../login-classes/config/db.php");
+
+require_once(dirname(dirname(__FILE__)) . "/login-classes/config/db.php");
 
 // load the registration class
-require_once ("geodata-class.php");
+require_once (dirname(__FILE__) . "/geodata-class.php");
 
 // create the geodata object.
 //this object shows the gps coords from the user who is logged in
@@ -24,7 +25,7 @@ $geodata = new Geodata ();
 
 							<div class="row">
 								<div class="6u 12u(mobile)">
-									<input type="month" name="gps_date"  class="login_input"  value="<?php echo $geodata->get_month();  ?>" required />
+									<input type="date" name="gps_date"  class="login_input"  value="<?php echo $geodata->get_date();  ?>" required />
 								</div>
 							</div>
 											
@@ -90,7 +91,7 @@ $geodata = new Geodata ();
 			          strokeColor: '#FF0000',
 			          strokeOpacity: 1.0,
 			          strokeWeight: 2,
-			          editable: true
+			          editable: false
 			      });
 
 			      polyline.setMap(map);    
@@ -114,13 +115,7 @@ $geodata = new Geodata ();
 			      }
 			      map.fitBounds(bounds);
 
-
-
-
-			      
 			}
-
-
 
 			initialize();
 

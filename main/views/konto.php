@@ -1,9 +1,9 @@
 <?php
 // include the configs / constants for the database connection
-require_once ("/../login-classes/config/db.php");
+require_once(dirname(dirname(__FILE__)) . "/login-classes/config/db.php");
 
 // load the registration class
-require_once ("/../login-classes/classes/Userdata.php");
+require_once(dirname(dirname(__FILE__)) . "/login-classes/classes/Userdata.php");
 
 // create the registration object. when this object is created, it will do all registration stuff automatically
 // so this single line handles the entire registration process.

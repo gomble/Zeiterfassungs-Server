@@ -1,9 +1,9 @@
 <?php
 // include the configs / constants for the database connection
-require_once ("/../login-classes/config/db.php");
+require_once(dirname(dirname(__FILE__)) . "/login-classes/config/db.php");
 
 // load the registration class
-require_once ("geodata-class.php");
+require_once (dirname(__FILE__) . "/geodata-class.php");
 
 // create the geodata object.
 // this object shows the gps coords from the user who is logged in

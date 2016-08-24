@@ -9,12 +9,8 @@ Copyright by Gökhan Balta,Stefan Huhn, Leon Strack
 --------------------------------------------------------
 TO-DO-LIST
 
+- Konto Frontend
+	- Statistik
 - Back-End
 	- Zeiten ändern
 	- Geo Daten administrieren
-- Register Formular
-- Login Forumlar
-- Konto Frontend
-	- Zeiten
-	- Map
-	- Statistik

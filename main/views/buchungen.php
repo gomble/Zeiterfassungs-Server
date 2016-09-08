@@ -4,10 +4,53 @@ require_once(dirname(dirname(__FILE__)) . "/login-classes/config/db.php");
 
 // load the registration class
 require_once (dirname(__FILE__) . "/buchungen-class.php");
+require_once (dirname(__FILE__) . "/pointlocation.php");
+require_once (dirname(__FILE__) . "/geodata-class.php");
 
-// create the geodata object.
-// this object shows the gps coords from the user who is logged in
-$buchungendata = new Buchungen ();
+
+
+$geodata = new Geodata ();
+$pointLocation = new pointLocation();
+
+
+$gps_coords = $geodata->get_gps_data($geodata->get_month());
+
+$workplace_coords = $geodata->get_workplace_coords_polygon_buchung();
+
+$check_in_out = array();
+$angemeldet = false;
+$runde = 0;
+
+	for($i = 0, $l = count($gps_coords); $i < $l; ++$i) {
+		
+		
+		$temp = $gps_coords[$i][1]." ".$gps_coords[$i][2];	
+		$value = $pointLocation->pointInPolygon($temp, $workplace_coords);
+		
+		
+		if($value == "inside" OR $value == "boundary" OR $value == "vertex" ){
+			
+			if($angemeldet==false){
+				$check_in_out[$runde][0] = $gps_coords[$i][0];
+				$angemeldet = true;
+				
+			}else{
+				
+			}
+			
+		}else if ($value == "outside"){
+			
+			if($angemeldet==false){
+				
+			}else{
+				$check_in_out[$runde][1] = $gps_coords[$i][0];
+				$angemeldet = false;
+				$runde++;
+			}
+
+		}
+		
+	}
 ?>
 
 <!-- Buchungen -->
@@ -24,14 +67,14 @@ $buchungendata = new Buchungen ();
 
 									<div class="row">
 										<div class="6u 12u(mobile)">
-											<input type="month" name="buchungen_date"  class="login_input"  value="<?php echo $buchungendata->get_month();  ?>" required />
+											<input type="month" name="gps_date"  class="login_input"  value="<?php echo $geodata->get_month();  ?>" required />
 										</div>
 									</div>
 													
 									<div class="row 200%">
 										<div class="12u">
 											<ul class="actions">
-												<li><input name="buchungen_submit" type="submit" value="Monat ändern" /></li>
+												<li><input name="gps_submit" type="submit" value="Monat ändern" /></li>
 											</ul>
 										</div>
 									</div>
@@ -39,17 +82,16 @@ $buchungendata = new Buchungen ();
 								</div>
 							</form>
 						</div>
-						<div id="map_canvas"></div>
 						<?php
 						// show potential errors / feedback (from geodata object)
-						if (isset ( $buchungendata )) {
-							if ($buchungendata->errors) {
-								foreach ( $buchungendata->errors as $error ) {
+						if (isset ( $geodata )) {
+							if ($geodata->errors) {
+								foreach ( $geodata->errors as $error ) {
 									echo $error;
 								}
 							}
-							if ($buchungendata->messages) {
-								foreach ( $buchungendata->messages as $message ) {
+							if ($geodata->messages) {
+								foreach ( $geodata->messages as $message ) {
 									echo $message;
 								}
 							}
@@ -67,60 +109,23 @@ $buchungendata = new Buchungen ();
 					<th data-th="Driver details">Beginn</th>
 					<th>Ende</th>
 					<th>Ist</th>
-					<th>Soll</th>
-					<th>TSaldo</th>
-					<th>Saldo</th>
 				</tr>
 
-				<tr>
-					<td>01.03.16</td>
-					<td>07:43</td>
-					<td>16:22</td>
-					<td>08:09</td>
-					<td>07:36</td>
-					<td>00:33</td>
-					<td>14:59</td>
-				</tr>
-
-				<tr>
-					<td>01.03.16</td>
-					<td>07:43</td>
-					<td>16:22</td>
-					<td>08:09</td>
-					<td>07:36</td>
-					<td>00:33</td>
-					<td>14:59</td>
-				</tr>
-				<tr>
-					<td>01.03.16</td>
-					<td>07:43</td>
-					<td>16:22</td>
-					<td>08:09</td>
-					<td>07:36</td>
-					<td>00:33</td>
-					<td>14:59</td>
-				</tr>
-				<tr>
-					<td>01.03.16</td>
-					<td>07:43</td>
-					<td>16:22</td>
-					<td>08:09</td>
-					<td>07:36</td>
-					<td>00:33</td>
-					<td>14:59</td>
-				</tr>
-				<tr>
-					<td>01.03.16</td>
-					<td>07:43</td>
-					<td>16:22</td>
-					<td>08:09</td>
-					<td>07:36</td>
-					<td>00:33</td>
-					<td>14:59</td>
-				</tr>
-
+				<?php
+					for($i = 0, $l = count($check_in_out); $i < $l; ++$i) {
+		
+						//echo " \n".$check_in_out[$i][0]." - " .$check_in_out[$i][1];
+						
+						printf ( "<tr>" );
+							printf ( "<td>" . $geodata->calc_time_date($check_in_out[$i][0]). "</td>" );
+							printf ( "<td>" . $geodata->calc_time_hour_minute($check_in_out[$i][0]) . "</td>" );
+							printf ( "<td>" . $geodata->calc_time_hour_minute($check_in_out[$i][1]) . "</td>" );
+							printf ( "<td>" . $geodata->calc_time($check_in_out[$i][0],$check_in_out[$i][1]) . "</td>" );
+						printf ( "</tr>" );
+						
+					}
+				?>
 			</table>
 		</div>
 	</article>
 </div>
-
